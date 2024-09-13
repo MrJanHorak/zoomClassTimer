@@ -4,62 +4,136 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Break Timer</title>
+
     <style>
-      :root {
-        --initial-color: #00ff00;
-        --final-color: #ff0000;
+     :root {
+  --initial-color: #00ff00; /* Green */
+  --final-color: #ff0000; /* Red */
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --background-color: #f8f9fa;
+  --border-color: #ced4da;
+  --text-color: #495057;
+  --font-family: Arial, sans-serif;
+}
 
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: var(--initial-color);
-        transition: background-color 1s linear;
-      }
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--initial-color);
+  transition: background-color 1s linear;
+}
 
-      #timer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 3rem;
-      }
+.upper-half {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 5%;
+  width: 100%;
+}
 
-      .setting {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        align-content: center;
-      }
+#timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  height: 100%;
+  width: 100%;
+}
 
-      .setting-contatiner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+.setting {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-      .time {
-        font-size: 1.5rem;
-      }
+.setting label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.setting input[type="checkbox"],
+.setting input[type="time"],
+.setting input[type="number"],
+.setting select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: #fff;
+}
+
+.setting button,
+.setting input[type="checkbox"] {
+  margin-top: 10px;
+}
+
+.preset-minutes button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.preset-minutes button:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+.button-container button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
     </style>
   </head>
-  <body>
-    <h1 class="what-for">Timer</h1>
-    <h2 class="time">Time: <span id="current-time">00:00</span></h2>
-    <h2 class="time">Until: <span id="break-until">00:00</span></h2>
 
+  <body>
+    <body>
+      <div class="upper-half">
+        <h1 class="what-for">Timer</h1>
+        <h3 class="time"> <span id="current-time">00:00</span></h3>
+        <h3 class="time until">Until: <span id="break-until">00:00</span></h3>
+      </div>
     <div id="timer">
       <h1 id="time">00:00</h1>
     </div>
     <div class="setting-contatiner">
       
-      </label>
-      <label for="show-setting"
-        >⚙️
-        <input type="checkbox" name="show-setting" id="show-setting" />
+      <label for="show-setting">⚙️
+        <input type="checkbox" name="show-setting" id="show-setting" checked />
       </label>
       <div class="setting">
         <label for="choice">What is this timer for?
@@ -67,16 +141,14 @@
             <option value="Break">Break</option>
             <option value="You do">You do</option>
             <option value="You do & Break">You do & break</option>
-            <option value="Lunch">Lunch</option>
+            <option value="Lunch Break">Lunch Break</option>
             <option value="Quiz">Quiz</option>
           </select>
-        </label> 
-        <label for="break-until-time"
-          >Break Until
+        </label>
+        <label for="break-until-time">Break Until
           <input type="time" name="break-until-time" id="break-until-time" />
         </label>
-        <label for="break-time"
-          >Break Time (minutes)
+        <label for="break-time">Break Time (minutes)
           <input type="number" name="break-time" id="break-time" value="5" />
         </label>
         <div class="preset-minutes">
@@ -87,21 +159,36 @@
           <button class="minute-choice" type="button">25</button>
           <button class="minute-choice" type="button">30</button>
         </div>
+        <div class="hide-time">
+          <label for="hide-time">Hide Time
+            <input id="hide-time" type="checkbox" name="hide-time" value="checked" checked />
+          </label>
+          <label for="hide-until">Hide Until
+            <input id="hide-until" type="checkbox" name="hide-until" value="checked" checked />
+          </label>
+        </div>
         <div class="button-container">
           <button id="start">Start</button>
           <button id="pause">Pause</button>
           <button id="reset">Reset</button>
         </div>
       </div>
-    </div>
     <script>
+      const currentTime = document.getElementById('current-time');
+      currentTime.style.display = 'none';
       const setting = document.querySelector('.setting');
       const whatFor = document.querySelector('.what-for');
+      const until = document.querySelector('.until');
+      until.style.display = 'none';
       const choiceSelect = document.getElementById('choice');
       const timer = document.getElementById('time');
       const start = document.getElementById('start');
       const pause = document.getElementById('pause');
       const reset = document.getElementById('reset');
+      const hideTime = document.getElementById('hide-time');
+      const hideUntil = document.getElementById('hide-until');
+
+
       const breakUntilTime = document.getElementById('break-until-time');
       const breakUntilDisplay = document.getElementById('break-until');
       const breakTimeInput = document.getElementById('break-time');
@@ -271,7 +358,13 @@
         });
       });
 
+      hideTime.addEventListener('change', (e) => {
+        currentTime.style.display = e.target.checked ? 'none' : 'block';
+      });
 
+      hideUntil.addEventListener('change', (e) => {
+        until.style.display = e.target.checked ? 'none' : 'block';
+      });
     </script>
   </body>
 </html>
